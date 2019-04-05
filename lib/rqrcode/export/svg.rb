@@ -22,7 +22,7 @@ module RQRCode
         text_in_image = options[:text_in_image] || {}
 
         # height and width dependent on offset and QR complexity
-        dimension = (self.module_count*module_size) + (2*offset)
+        dimension = options[:dimension] || (self.module_count*module_size) + (2*offset)
 
         xml_tag = %{<?xml version="1.0" standalone="yes"?>}
         open_tag = %{<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" width="#{dimension}" height="#{dimension}" shape-rendering="#{shape_rendering}">}

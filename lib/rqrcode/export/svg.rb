@@ -19,6 +19,7 @@ module RQRCode
         color = options[:color] || "000"
         shape_rendering = options[:shape_rendering] || "crispEdges"
         module_size = options[:module_size] || 11
+        text_in_image = options[:text_in_image] || {}
 
         # height and width dependent on offset and QR complexity
         dimension = (self.module_count*module_size) + (2*offset)
@@ -44,7 +45,11 @@ module RQRCode
           result.unshift %{<rect width="#{dimension}" height="#{dimension}" x="0" y="0" style="fill:##{options[:fill]}"/>}
         end
 
-        [xml_tag, open_tag, result, close_tag].flatten.join("\n")
+        if text_in_image
+          text = %{<text x="#{text_in_image[:x]}" y="#{text_in_image[:y]}" fill="#{text_in_image[:fill_color]}">#{text_in_image[:text]}</text>}
+        end
+
+        [xml_tag, open_tag, result, text, close_tag].flatten.join("\n")
       end
     end
   end
